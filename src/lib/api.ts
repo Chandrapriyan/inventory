@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://inventory-k515.onrender.com/';
+const API_BASE_URL = 'https://inventory-k515.onrender.com/api';
 const API_KEY = 'your-secure-api-key'; // Should match backend .env
 
 export async function apiRequest(endpoint: string, options: RequestInit = {}) {

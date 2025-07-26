@@ -4,7 +4,10 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'https://inventory-k515.onrender.com',
+  credentials: true,
+}));
 app.use(express.json());
 
 // API Key Middleware
