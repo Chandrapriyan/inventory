@@ -23,7 +23,7 @@ export type ExportReportsOutput = z.infer<typeof ExportReportsOutputSchema>;
 
 export async function exportReports(input: ExportReportsInput): Promise<ExportReportsOutput> {
   // Mock implementation for browser compatibility
-  const { billData, customerPreference } = input;
+  const { billData } = input;
   
   // Create CSV headers
   const headers = ['Bill ID', 'Customer', 'Date', 'Total', 'Status'];

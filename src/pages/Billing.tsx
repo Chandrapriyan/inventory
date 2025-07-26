@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
   CardFooter,
-  CardDescription,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
@@ -30,11 +29,12 @@ import { PlusCircle, Printer, Trash2, Loader2 } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/api";
+import type { Product } from "@/data/products";
 
 export default function Billing() {
-  const [billItems, setBillItems] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [selectedProductId, setSelectedProductId] = useState();
+  const [billItems, setBillItems] = useState<{ product: Product; quantity: number }[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [selectedProductId, setSelectedProductId] = useState<string | undefined>(undefined);
   const [quantity, setQuantity] = useState(1);
   const [gstRate, setGstRate] = useState(18); // 18% GST
   const [discount, setDiscount] = useState(0);
@@ -43,7 +43,6 @@ export default function Billing() {
   const [billDate, setBillDate] = useState("");
   const [isSaving, setIsSaving] = useState(false);
   const { toast } = useToast();
-  const [sellingOrders, setSellingOrders] = useState([]);
   const [paymentMethod, setPaymentMethod] = useState("Cash"); // Default to Cash
   const [productSearch, setProductSearch] = useState("");
   const [customerId, setCustomerId] = useState("");
@@ -88,7 +87,7 @@ export default function Billing() {
     setQuantity(1);
   };
 
-  const handleRemoveItem = (productId) => {
+  const handleRemoveItem = (productId: string) => {
     setBillItems(billItems.filter(item => item.product.productId !== productId));
   };
 
@@ -129,20 +128,11 @@ export default function Billing() {
     };
 
     try {
-      const newBill = await apiRequest('/bills', {
+      await apiRequest('/bills', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(billData),
       });
-
-      const newSellingOrder = {
-          id: `SO-${Math.floor(1000 + Math.random() * 9000)}`,
-          customer: newBill.customerName,
-          date: newBill.date,
-          total: newBill.total,
-          status: "Processing",
-      };
-      setSellingOrders(prevOrders => [newSellingOrder, ...prevOrders]);
 
       toast({
         title: 'Bill Saved',
@@ -358,7 +348,7 @@ export default function Billing() {
                 </CardFooter>
             )}
         </Card>
-        <style jsx="true" global="true">{`
+        <style>{`
           @media print {
             body * {
               visibility: hidden;

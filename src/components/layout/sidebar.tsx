@@ -6,7 +6,6 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarFooter,
 } from "@/components/ui/sidebar";
 import { Logo } from "@/components/logo";
 import {
@@ -14,7 +13,6 @@ import {
   FileText,
   Package,
   History as HistoryIcon,
-  Settings,
   ShoppingCart,
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
