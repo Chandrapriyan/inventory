@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from "@/components/theme-provider"
 import AppLayout from './components/AppLayout'
 import Dashboard from './pages/Dashboard'
-import Billing from './pages/Billing'
+import Billing from './pages/Billing.tsx'
 import History from './pages/History'
 import Orders from './pages/Orders'
 import Products from './pages/Products'
